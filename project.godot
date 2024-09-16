@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Little Adventurer – Learn to Make a 3D Action Game with Godot by Single-minded Ryan"
+run/main_scene="res://Scenes/main_scene.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
 project/assembly_name="Little Adventurer – Learn to Make a 3D Action Game with Godot by Single-minded Ryan"
+
+[rendering]
+
+anti_aliasing/quality/screen_space_aa=1
