@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://nl40uj7b6dv0"]
+
+[ext_resource type="PackedScene" uid="uid://xm3a5j45elv3" path="res://Asset/Scene/GameLevelScene.tscn" id="1_1jeta"]
+
+[node name="MainScene" type="Node3D"]
+
+[node name="Level" parent="." instance=ExtResource("1_1jeta")]
