@@ -6,20 +6,13 @@ public partial class PlayerCharacter : CharacterBody3D
 	public const float SPEED = 5.0f;
 	public const float JUMP_VELOCITY = 4.5f;
 
-	// Get the gravity from the project settings to be synced with RigidBody nodes.
-	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
-
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
 
 		// Add the gravity.
 		if (!IsOnFloor())
-			velocity.Y -= gravity * (float)delta;
-
-		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-			velocity.Y = JUMP_VELOCITY;
+			velocity.Y -= 1.0f;
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
