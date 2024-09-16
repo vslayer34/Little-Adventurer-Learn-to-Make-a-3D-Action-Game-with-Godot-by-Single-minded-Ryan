@@ -16,7 +16,13 @@ public partial class PlayerCharacter : CharacterBody3D
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		Vector2 inputDir = Input.GetVector(
+			InputMapConsts.UserDefined.MOVE_LEFT, 
+			InputMapConsts.UserDefined.MOVE_RIGHT, 
+			InputMapConsts.UserDefined.MOVE_UP, 
+			InputMapConsts.UserDefined.MOVE_DOWN
+			);
+		
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		if (direction != Vector3.Zero)
 		{
