@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class PlayerCharacter : CharacterBody3D
 {
@@ -13,7 +14,9 @@ public partial class PlayerCharacter : CharacterBody3D
 
 	private Vector2 _lookDirection;
 
-	public override void _PhysicsProcess(double delta)
+	private bool _isMoving;
+
+	public override async void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
 
@@ -45,22 +48,101 @@ public partial class PlayerCharacter : CharacterBody3D
 
 		if (velocity.Length() > 0.2f)
 		{
+
+			// float turnTimer = 0.0f;
+			// const float TURN_TIME = 0.5f;
+
 			_lookDirection.X = velocity.Z;
 			_lookDirection.Y = velocity.X;
 
+			// var currentRotation = Visual.Rotation;
+			// var targetRotation = new Vector3(currentRotation.X, _lookDirection.Angle(), currentRotation.Z);
+
 			// Visual.Rotation = new Vector3(Visual.Rotation.X, _lookDirection.Angle(), Visual.Rotation.Z);
-			// Visual.RotateY()
-			Visual.RotateObjectLocal(Vector3.Up, RotationDegrees.X);
+			// Visual.Rotation = currentRotation.Slerp(targetRotation, 0.5f);
+			// Visual.Rotation = currentRotation.Lerp(targetRotation, 0.5f);
+
+			// Visual.Rotate()
+			GD.Print(direction);
+
+			_isMoving = true;
+
 			
-			var a = new Quaternion(Transform.Basis);
-			var b = new Quaternion(Visual.Transform.Basis);
+			// var newBasis = Visual.Transform;
 
-			var c = a.Slerp(b,0.5f);
+			// GD.Print($"Visual.Transform:{Visual.Transform.Basis}");
+			// GD.Print($"new Basis:{newBasis.Basis}");
+			
+			// newBasis.Basis = Basis.FromEuler(new Vector3(0.0f, -_lookDirection.Y, 0.0f));
 
-			// Visual.Transform = new Transform3D(c);
+			// GD.Print($"new Basis2:{newBasis.Basis}");
+			
+			// Visual.Transform = newBasis;
+
+			// GD.Print($"Visual.Transform2:{Visual.Transform.Basis}");
+			await RotateCharacterAsync(direction, (float)delta);
 		}
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	private async Task RotateCharacterAsync(Vector3 velocity, float delta)
+	{
+		if (!_isMoving)
+		{
+			return;
+		}
+
+		float turnTimer = 0.0f;
+		const float TURN_TIME = 0.2f;
+
+		// _lookDirection.ang
+
+		// _lookDirection.X = velocity.Z;
+		// _lookDirection.Y = velocity.X;
+
+		// GD.Print(direction);
+		// GD.Print(_lookDirection);
+
+		// var currentRotation = Visual.Rotation;
+		// var targetRotation = new Vector3(currentRotation.X, _lookDirection.Angle(), currentRotation.Z);
+
+		var currentRotation = Visual.Transform;
+		var modify = currentRotation;
+		// modify.Basis = Basis.FromEuler(new Vector3(0.0f, -_lookDirection.Y, 0.0f));
+		modify.Basis = Transform.Basis;
+		var targetRotation = modify;
+		// Visual.Transform = targetRotation;
+
+		var i1 = 1;
+		var i2 = 10;
+
+		while (turnTimer < TURN_TIME)
+		{
+			turnTimer += delta;
+			// GD.Print(turnTimer);
+			// await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+			GD.Print(_lookDirection.Angle());
+
+			// Visual.Rotation = currentRotation.Lerp(targetRotation, turnTimer/TURN_TIME);
+
+			Visual.Transform = currentRotation.InterpolateWith(targetRotation, turnTimer / TURN_TIME);
+
+			// var newBasis = Visual.Transform;
+			// // GD.Print($"Visual.Transform:{Visual.Transform.Basis}");
+			// // GD.Print($"new Basis:{newBasis.Basis}");
+			// newBasis.Basis = Basis.FromEuler(new Vector3(0.0f, -_lookDirection.Y, 0.0f));
+			// // GD.Print($"new Basis2:{newBasis.Basis}");
+			// Visual.Transform = newBasis;
+			// GD.Print(Mathf.Lerp(i1, i2, turnTimer / TURN_TIME));
+
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		}
+
+		// Visual.Rotation = targetRotation;
+		Visual.Transform = targetRotation;
+
+		_isMoving = true;
 	}
 }
