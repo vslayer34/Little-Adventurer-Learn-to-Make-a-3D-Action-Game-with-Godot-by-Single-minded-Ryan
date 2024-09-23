@@ -9,6 +9,9 @@ public partial class Coin : Node3D
 	public Node3D CoinMesh { get; private set; }
 
 	[Export]
+	public GpuParticles3D PickUpVFX { get; private set; }
+
+	[Export]
 	public Area3D CoinCollider { get; private set; }
 
 	[ExportGroup("")]
@@ -35,7 +38,13 @@ public partial class Coin : Node3D
 	{
 		if (body is PlayerCharacter player)
 		{
-			QueueFree();
+			PickUpVFX.Emitting = true;
+			CoinMesh.Visible = false;
+
+			PickUpVFX.Finished += () =>
+			{
+				QueueFree();
+			};
 		}
 	}
 }
