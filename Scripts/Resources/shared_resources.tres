@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://t6ja2o3dxos3"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/GameResources.cs" id="1_q33w6"]
+
+[resource]
+script = ExtResource("1_q33w6")
+CoinsCollected = 0.0
