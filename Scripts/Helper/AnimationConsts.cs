@@ -13,14 +13,62 @@ public static class AnimationConsts
     public static class Player
     {
         /// <summary>
-        /// Reference to the player running animation
+        /// Reference to the player attack 01 animation
         /// </summary>
-        public const string RUN = "LittleAdventurerAndie_Run";
+        public const string ATTACK_01 = "LittleAdventurerAndie_ATTACK_01";
+
+
+        /// <summary>
+        /// Reference to the player attack 02 animation
+        /// </summary>
+        public const string ATTACK_02 = "LittleAdventurerAndie_ATTACK_02";
+
+
+        /// <summary>
+        /// Reference to the player attack 03 animation
+        /// </summary>
+        public const string ATTACK_03 = "LittleAdventurerAndie_ATTACK_03";
+
+
+        /// <summary>
+        /// Reference to the player airborne animation
+        /// </summary>
+        public const string AIR_BORNE = "LittleAdventurerAndie_Airborne";
+
+
+        /// <summary>
+        /// Reference to the player dead animation
+        /// </summary>
+        public const string DEAD = "LittleAdventurerAndie_Dead";
+
+
+        /// <summary>
+        /// Reference to the player hurt animation
+        /// </summary>
+        public const string HURT = "LittleAdventurerAndie_Hurt";
 
 
         /// <summary>
         /// Reference to the player idle animation
         /// </summary>
         public const string IDLE = "LittleAdventurerAndie_Idel";
+
+
+        /// <summary>
+        /// Reference to the player roll animation
+        /// </summary>
+        public const string ROLL = "LittleAdventurerAndie_Roll";
+
+
+        /// <summary>
+        /// Reference to the player running animation
+        /// </summary>
+        public const string RUN = "LittleAdventurerAndie_Run";
+
+
+        /// <summary>
+        /// Reference to the player walk animation
+        /// </summary>
+        public const string WALK = "LittleAdventurerAndie_Walk";
     }
 }
