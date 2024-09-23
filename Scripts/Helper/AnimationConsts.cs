@@ -71,4 +71,16 @@ public static class AnimationConsts
         /// </summary>
         public const string WALK = "LittleAdventurerAndie_Walk";
     }
+
+
+    /// <summary>
+    /// Hold the names for the coin animation clips
+    /// </summary>
+    public static class Coin
+    {
+        /// <summary>
+        /// Reference to the coin collected animation
+        /// </summary>
+        public const string COLLECTED = "Collected";
+    }
 }

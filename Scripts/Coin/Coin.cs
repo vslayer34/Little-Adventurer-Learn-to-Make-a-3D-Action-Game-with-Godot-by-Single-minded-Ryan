@@ -1,4 +1,5 @@
 using Godot;
+using LittleAdventurer.Scripts.Helper;
 using LittleAdventurer.Scripts.Player;
 using LittleAdventurer.Scripts.Resources;
 using System;
@@ -8,7 +9,7 @@ public partial class Coin : Node3D
 	[Signal]
 	public delegate void OnCoinCollectedEventHandler(float value);
 
-	
+	#region Child Nodes
 	[ExportGroup("Child Nodes")]
 	[Export]
 	public Node3D CoinMesh { get; private set; }
@@ -19,7 +20,11 @@ public partial class Coin : Node3D
 	[Export]
 	public Area3D CoinCollider { get; private set; }
 
+	[Export]
+	public AnimationPlayer AnimePlayer { get; private set; }
+
 	[ExportGroup("")]
+	#endregion
 
 	
 	
@@ -53,7 +58,7 @@ public partial class Coin : Node3D
 		if (body is PlayerCharacter player)
 		{
 			PickUpVFX.Emitting = true;
-			CoinMesh.Visible = false;
+			AnimePlayer.Play(AnimationConsts.Coin.COLLECTED);
 
 			// add the coin and subscribe itself from the coin before destroying itself
 			EmitSignal(SignalName.OnCoinCollected, coinValue);
