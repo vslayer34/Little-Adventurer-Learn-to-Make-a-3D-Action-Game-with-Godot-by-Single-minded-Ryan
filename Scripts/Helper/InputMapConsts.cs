@@ -1,6 +1,7 @@
 using System;
 
 
+namespace LittleAdventurer.Scripts.Helper;
 /// <summary>
 /// Reference to the inputs in the input map project settings
 /// </summary>

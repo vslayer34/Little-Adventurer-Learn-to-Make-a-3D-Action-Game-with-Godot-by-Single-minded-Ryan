@@ -1,12 +1,16 @@
 using Godot;
-using System;
-using System.Threading.Tasks;
+using LittleAdventurer.Scripts.Helper;
 
+
+namespace LittleAdventurer.Scripts.Player;
 public partial class PlayerCharacter : CharacterBody3D
 {
 	[ExportGroup("Required Nodes")]
 	[Export]
 	public Node3D Visual { get; private set; }
+
+	[Export]
+	public AnimationPlayer AnimePlayerNode { get; private set; }
 
 
 	public const float SPEED = 5.0f;
@@ -39,11 +43,15 @@ public partial class PlayerCharacter : CharacterBody3D
 		{
 			velocity.X = direction.X * SPEED;
 			velocity.Z = direction.Z * SPEED;
+			
+			AnimePlayerNode.Play(AnimationConsts.Player.RUN);
 		}
 		else
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, SPEED);
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, SPEED);
+
+			AnimePlayerNode.Play(AnimationConsts.Player.IDLE);
 		}
 
 		if (velocity.Length() > 0.2f)
