@@ -7,7 +7,7 @@ using System;
 public partial class Coin : Node3D
 {
 	[Signal]
-	public delegate void OnCoinCollectedEventHandler(float value);
+	public delegate void OnCoinCollectedEventHandler(int value);
 
 	#region Child Nodes
 	[ExportGroup("Child Nodes")]

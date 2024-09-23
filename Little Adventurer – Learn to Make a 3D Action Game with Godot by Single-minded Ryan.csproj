@@ -6,4 +6,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>LittleAdventurerLearntoMakea3DActionGamewithGodotbySinglemindedRyan</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Scripts/UI/" />
+  </ItemGroup>
 </Project>
