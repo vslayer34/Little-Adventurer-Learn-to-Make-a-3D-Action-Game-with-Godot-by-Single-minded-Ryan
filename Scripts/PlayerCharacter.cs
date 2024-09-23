@@ -12,6 +12,9 @@ public partial class PlayerCharacter : CharacterBody3D
 	[Export]
 	public AnimationPlayer AnimePlayerNode { get; private set; }
 
+	[Export]
+	public VFXHolder VFXReference { get; private set; }
+
 
 	public const float SPEED = 5.0f;
 	public const float JUMP_VELOCITY = 4.5f;
@@ -44,14 +47,18 @@ public partial class PlayerCharacter : CharacterBody3D
 			velocity.X = direction.X * SPEED;
 			velocity.Z = direction.Z * SPEED;
 			
+			// Play run animations and start footstep VFX
 			AnimePlayerNode.Play(AnimationConsts.Player.RUN);
+			VFXReference.FootStepsVFX.Emitting = true;
 		}
 		else
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, SPEED);
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, SPEED);
 
+			// Play idle animations and stop footstep vfx
 			AnimePlayerNode.Play(AnimationConsts.Player.IDLE);
+			VFXReference.FootStepsVFX.Emitting = false;
 		}
 
 		if (velocity.Length() > 0.2f)
