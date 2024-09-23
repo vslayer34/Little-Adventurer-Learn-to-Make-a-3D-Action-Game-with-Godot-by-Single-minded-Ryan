@@ -53,14 +53,14 @@ public partial class PlayerCharacter : CharacterBody3D
 
 			_isMoving = true;
 			
-			RotateCharacterAsync(direction, (float)delta);
+			RotateCharacterAsync((float)delta);
 		}
 
 		Velocity = velocity;
 		MoveAndSlide();
 	}
 
-	private async void RotateCharacterAsync(Vector3 velocity, float delta)
+	private async void RotateCharacterAsync(float delta)
 	{
 		if (!_isMoving)
 		{
