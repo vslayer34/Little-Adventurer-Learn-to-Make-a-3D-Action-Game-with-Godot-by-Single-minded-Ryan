@@ -12,22 +12,27 @@ public partial class StateBase : Node
 
     // Member Methods------------------------------------------------------------------------------
 
-    protected void EnterState()
+    public override void _Ready()
+    {
+        _stateMachine = GetParent() as StateMachine;
+    }
+
+    public virtual void EnterState()
     {
         GD.Print($"{Name} entering state");
     }
 
-    protected void ExitState()
+    protected virtual void ExitState()
     {
         GD.Print($"{Name} exting state");
     }
 
-    protected void UpdateState(float delta)
+    protected virtual void UpdateState(float delta)
     {
 
     }
 
-    protected void DisplayInfo()
+    protected virtual void DisplayInfo()
     {
         GD.Print($"{Name} / {_character}");
     }
