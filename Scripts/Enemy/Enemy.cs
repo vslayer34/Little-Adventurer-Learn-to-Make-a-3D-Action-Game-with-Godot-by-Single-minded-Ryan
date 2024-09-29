@@ -24,7 +24,6 @@ public partial class Enemy : CharacterBody3D
 
     public override async void _PhysicsProcess(double delta)
     {
-
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		
 		Agent.TargetPosition = SharedResources.Player.GlobalPosition;
