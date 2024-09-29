@@ -22,10 +22,13 @@ public partial class Enemy : CharacterBody3D
 
     // Game Loop Methods---------------------------------------------------------------------------
 
-    public override void _PhysicsProcess(double delta)
+    public override async void _PhysicsProcess(double delta)
     {
-        Agent.TargetPosition = SharedResources.Player.GlobalPosition;
 
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		
+		Agent.TargetPosition = SharedResources.Player.GlobalPosition;
+		
 		_direction = Agent.GetNextPathPosition() - GlobalPosition;
 		_direction = _direction.Normalized();
 
@@ -38,4 +41,6 @@ public partial class Enemy : CharacterBody3D
 
 		MoveAndSlide();
     }
+
+	// Member Methods------------------------------------------------------------------------------
 }
