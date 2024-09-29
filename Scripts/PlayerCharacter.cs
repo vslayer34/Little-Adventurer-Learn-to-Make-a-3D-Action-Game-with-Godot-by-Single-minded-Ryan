@@ -1,11 +1,12 @@
 using Godot;
 using LittleAdventurer.Scripts.Helper;
+using LittleAdventurer.Scripts.Resources;
 
 
 namespace LittleAdventurer.Scripts.Player;
 public partial class PlayerCharacter : CharacterBody3D
 {
-	[ExportGroup("Required Nodes")]
+	[ExportGroup("Child Nodes")]
 	[Export]
 	public Node3D Visual { get; private set; }
 
@@ -16,6 +17,11 @@ public partial class PlayerCharacter : CharacterBody3D
 	public VFXHolder VFXReference { get; private set; }
 
 
+	[ExportCategory("Required Nodes")]
+	[Export]
+	public GameResources SharedResources { get; private set; }
+
+
 	public const float SPEED = 5.0f;
 	public const float JUMP_VELOCITY = 4.5f;
 
@@ -23,7 +29,17 @@ public partial class PlayerCharacter : CharacterBody3D
 
 	private bool _isMoving;
 
-	public override void _PhysicsProcess(double delta)
+
+
+    // Game Loop Methods---------------------------------------------------------------------------
+
+    public override void _EnterTree()
+    {
+        SharedResources.SetPlayerInstance(this);
+    }
+
+
+    public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
 

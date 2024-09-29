@@ -1,6 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://tk2pvqwlmphm"]
+[gd_scene load_steps=14 format=3 uid="uid://tk2pvqwlmphm"]
 
+[ext_resource type="Script" path="res://Scripts/Enemy/Enemy.cs" id="1_giqmp"]
 [ext_resource type="Material" uid="uid://6y8a7flk0cxy" path="res://Asset/Characters/NPC/npc_material.tres" id="1_gtbcc"]
+[ext_resource type="Resource" uid="uid://t6ja2o3dxos3" path="res://Scripts/Resources/shared_resources.tres" id="2_oyxvj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ce1dt"]
 resource_name = "NPC_02.001"
@@ -2304,7 +2306,10 @@ _data = {
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_52xho"]
 
-[node name="Enemy" type="CharacterBody3D"]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("Agent")]
+script = ExtResource("1_giqmp")
+SharedResources = ExtResource("2_oyxvj")
+Agent = NodePath("NavigationAgent3D")
 
 [node name="EnemyVisual" type="Node3D" parent="."]
 

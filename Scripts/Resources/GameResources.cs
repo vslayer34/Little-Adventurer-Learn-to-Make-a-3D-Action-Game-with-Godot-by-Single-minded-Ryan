@@ -1,4 +1,5 @@
 using Godot;
+using LittleAdventurer.Scripts.Player;
 using System;
 
 namespace LittleAdventurer.Scripts.Resources;
@@ -16,6 +17,9 @@ public partial class GameResources : Resource
     public int CoinsCollected { get; private set; }
 
 
+    public PlayerCharacter Player { get; private set;}
+
+
 
     // Member Methods------------------------------------------------------------------------------
 
@@ -23,5 +27,10 @@ public partial class GameResources : Resource
     {
         CoinsCollected += amount;
         EmitSignal(SignalName.CoinAdded, CoinsCollected);
+    }
+
+    public void SetPlayerInstance(PlayerCharacter player)
+    {
+        Player = player;
     }
 }
