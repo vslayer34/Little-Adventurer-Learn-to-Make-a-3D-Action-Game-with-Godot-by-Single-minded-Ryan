@@ -4,15 +4,8 @@ using LittleAdventurer.Scripts.Resources;
 
 
 namespace LittleAdventurer.Scripts.Player;
-public partial class PlayerCharacter : CharacterBody3D
+public partial class PlayerCharacter : Character
 {
-	[ExportGroup("Child Nodes")]
-	[Export]
-	public Node3D Visual { get; private set; }
-
-	[Export]
-	public AnimationPlayer AnimePlayerNode { get; private set; }
-
 	[Export]
 	public VFXHolder VFXReference { get; private set; }
 
@@ -64,7 +57,7 @@ public partial class PlayerCharacter : CharacterBody3D
 			velocity.Z = direction.Z * SPEED;
 			
 			// Play run animations and start footstep VFX
-			AnimePlayerNode.Play(AnimationConsts.Player.RUN);
+			AnimPlayer.Play(AnimationConsts.Player.RUN);
 			VFXReference.FootStepsVFX.Emitting = true;
 		}
 		else
@@ -73,7 +66,7 @@ public partial class PlayerCharacter : CharacterBody3D
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, SPEED);
 
 			// Play idle animations and stop footstep vfx
-			AnimePlayerNode.Play(AnimationConsts.Player.IDLE);
+			AnimPlayer.Play(AnimationConsts.Player.IDLE);
 			VFXReference.FootStepsVFX.Emitting = false;
 		}
 
@@ -102,7 +95,7 @@ public partial class PlayerCharacter : CharacterBody3D
 		const float TURN_TIME = 0.15f;
 
 
-		Transform3D currentTransform = Visual.Transform;
+		Transform3D currentTransform = Mesh.Transform;
 		Transform3D modifyableTransforn = currentTransform;
 
 		modifyableTransforn.Basis = Basis.FromEuler(new Vector3(0.0f, _lookDirection.Angle(), 0.0f));
@@ -117,11 +110,11 @@ public partial class PlayerCharacter : CharacterBody3D
 
 			// Visual.Rotation = currentRotation.Lerp(targetRotation, turnTimer/TURN_TIME);
 
-			Visual.Transform = currentTransform.InterpolateWith(targetTransform, turnTimer / TURN_TIME);
+			Mesh.Transform = currentTransform.InterpolateWith(targetTransform, turnTimer / TURN_TIME);
 		}
 
 		// Visual.Rotation = targetRotation;
-		Visual.Transform = targetTransform;
+		Mesh.Transform = targetTransform;
 
 		_isMoving = true;
 	}
