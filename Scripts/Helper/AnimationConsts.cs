@@ -83,4 +83,40 @@ public static class AnimationConsts
         /// </summary>
         public const string COLLECTED = "Collected";
     }
+
+
+    /// <summary>
+    /// Hold the names for the enemy animation clips
+    /// </summary>
+    public static class Enemy
+    {
+        /// <summary>
+        /// Reference to the enemy <c>NPC_01_ATTACK</c> animation
+        /// </summary>
+        public const string ATTACK = "NPC_01_ATTACK";
+
+
+        /// <summary>
+        /// Reference to the enemy <c>NPC_01_DEAD</c> animation
+        /// </summary>
+        public const string DEAD = "NPC_01_DEAD";
+
+
+        /// <summary>
+        /// Reference to the enemy <c>NPC_01_HURT</c> animation
+        /// </summary>
+        public const string HURT = "NPC_01_HURT";
+
+
+        /// <summary>
+        /// Reference to the enemy <c>NPC_01_IDEL</c> animation
+        /// </summary>
+        public const string IDLE = "NPC_01_IDEL";
+
+
+        /// <summary>
+        /// Reference to the enemy <c>NPC_01_WALK</c> animation
+        /// </summary>
+        public const string WALK = "NPC_01_WALK";
+    }
 }
