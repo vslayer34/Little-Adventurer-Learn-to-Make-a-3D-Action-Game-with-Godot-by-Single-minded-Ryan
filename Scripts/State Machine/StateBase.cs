@@ -4,6 +4,13 @@ using Godot;
 namespace LittleAdventurer.Scripts.State_Machine;
 public partial class StateBase : Node
 {
+    [Signal]
+    public delegate void OnEnterStateEventHandler(StateBase nextState);
+
+    [Signal]
+    public delegate void OnExitStateEventHandler(StateBase nextState);
+
+
     protected Character _character;
 
     protected StateMachine _stateMachine;
@@ -15,15 +22,45 @@ public partial class StateBase : Node
     public override void _Ready()
     {
         _stateMachine = GetParent() as StateMachine;
+        _stateMachine.OnEnterState += EnterState;
+        _stateMachine.OnExitState += ExitState;
+
+        SetPhysicsProcess(false);
+        SetProcess(false);
     }
 
-    public virtual void EnterState()
+
+    public override void _ExitTree()
     {
+        _stateMachine.OnEnterState -= EnterState;
+        _stateMachine.OnExitState -= ExitState;
+    }
+
+    // Member methods------------------------------------------------------------------------------
+
+    protected virtual void EnterState(StateBase state)
+    {
+        if (state != this)
+        {
+            return;
+        }
+
+        SetPhysicsProcess(true);
+        SetProcess(true);
+
         GD.Print($"{Name} entering state");
     }
 
-    protected virtual void ExitState()
+    protected virtual void ExitState(StateBase state)
     {
+        if (state != this)
+        {
+            return;
+        }
+
+        SetPhysicsProcess(false);
+        SetProcess(false);
+
         GD.Print($"{Name} exting state");
     }
 
@@ -36,4 +73,8 @@ public partial class StateBase : Node
     {
         GD.Print($"{Name} / {_character}");
     }
+
+    // Getters and Setters-------------------------------------------------------------------------
+
+    public Character ParentCharacter { get => _character; set => _character = value; }
 }
