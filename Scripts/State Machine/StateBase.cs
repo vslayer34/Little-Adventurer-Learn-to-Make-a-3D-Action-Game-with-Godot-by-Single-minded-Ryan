@@ -29,6 +29,11 @@ public partial class StateBase : Node
         SetProcess(false);
     }
 
+    public override void _Process(double delta)
+    {
+        UpdateState((float) delta);
+    }
+
 
     public override void _ExitTree()
     {

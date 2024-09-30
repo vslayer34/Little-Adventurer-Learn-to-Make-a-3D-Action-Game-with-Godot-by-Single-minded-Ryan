@@ -43,7 +43,7 @@ public partial class StateMachine : Node3D
 
     // Member Methods------------------------------------------------------------------------------
 
-    private void SwitchStates<T>() where T : StateBase
+    public void SwitchStates<T>() where T : StateBase
     {
         _newState = null;
 

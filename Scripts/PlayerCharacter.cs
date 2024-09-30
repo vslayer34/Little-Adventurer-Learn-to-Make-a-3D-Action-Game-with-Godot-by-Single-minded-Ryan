@@ -22,6 +22,8 @@ public partial class PlayerCharacter : Character
 
 	private bool _isMoving;
 
+	private Vector3 _moveDirection;
+
 
 
     // Game Loop Methods---------------------------------------------------------------------------
@@ -49,12 +51,12 @@ public partial class PlayerCharacter : Character
 			InputMapConsts.UserDefined.MOVE_DOWN
 			);
 		
-		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+		_moveDirection = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		
-		if (direction != Vector3.Zero)
+		if (_moveDirection != Vector3.Zero)
 		{
-			velocity.X = direction.X * SPEED;
-			velocity.Z = direction.Z * SPEED;
+			velocity.X = _moveDirection.X * SPEED;
+			velocity.Z = _moveDirection.Z * SPEED;
 			
 			// Play run animations and start footstep VFX
 			AnimPlayer.Play(AnimationConsts.Player.RUN);
@@ -66,7 +68,7 @@ public partial class PlayerCharacter : Character
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, SPEED);
 
 			// Play idle animations and stop footstep vfx
-			AnimPlayer.Play(AnimationConsts.Player.IDLE);
+			// AnimPlayer.Play(AnimationConsts.Player.IDLE);
 			VFXReference.FootStepsVFX.Emitting = false;
 		}
 
@@ -118,4 +120,8 @@ public partial class PlayerCharacter : Character
 
 		_isMoving = true;
 	}
+
+	// Getters and Setters-------------------------------------------------------------------------
+
+	public Vector3 MoveDirection { get => _moveDirection; }
 }
