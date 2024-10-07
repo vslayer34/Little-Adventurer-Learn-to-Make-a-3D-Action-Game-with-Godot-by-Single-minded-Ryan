@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using LittleAdventurer.Scripts.Helper;
 using LittleAdventurer.Scripts.Resources;
@@ -23,6 +24,14 @@ public partial class PlayerCharacter : Character
 	private bool _isMoving;
 
 	private Vector3 _moveDirection;
+	private Vector3 _velocity;
+
+
+	private const float SLIDE_SPEED = 650.0f;
+	private const float SLIDE_DURATION = 0.3f;
+	private float _slideTimer;
+
+	private bool _isSlideing;
 
 
 
@@ -34,13 +43,13 @@ public partial class PlayerCharacter : Character
     }
 
 
-    public override void _PhysicsProcess(double delta)
+    public override async void _PhysicsProcess(double delta)
 	{
-		Vector3 velocity = Velocity;
+		_velocity = Velocity;
 
 		// Add the gravity.
 		if (!IsOnFloor())
-			velocity.Y -= 1.0f;
+			_velocity.Y -= 1.0f;
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
@@ -55,8 +64,8 @@ public partial class PlayerCharacter : Character
 		
 		if (_moveDirection != Vector3.Zero)
 		{
-			velocity.X = _moveDirection.X * SPEED;
-			velocity.Z = _moveDirection.Z * SPEED;
+			_velocity.X = _moveDirection.X * SPEED;
+			_velocity.Z = _moveDirection.Z * SPEED;
 			
 			// // Play run animations and start footstep VFX
 			// AnimPlayer.Play(AnimationConsts.Player.RUN);
@@ -64,26 +73,57 @@ public partial class PlayerCharacter : Character
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, SPEED);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, SPEED);
+			_velocity.X = Mathf.MoveToward(Velocity.X, 0, SPEED);
+			_velocity.Z = Mathf.MoveToward(Velocity.Z, 0, SPEED);
 
 			// // Play idle animations and stop footstep vfx
 			// AnimPlayer.Play(AnimationConsts.Player.IDLE);
 			// VFXReference.FootStepsVFX.Emitting = false;
 		}
 
-		if (velocity.Length() > 0.2f)
+		if (_velocity.Length() > 0.2f)
 		{
-			_lookDirection.X = velocity.Z;
-			_lookDirection.Y = velocity.X;
+			_lookDirection.X = _velocity.Z;
+			_lookDirection.Y = _velocity.X;
 
 			_isMoving = true;
 			
 			RotateCharacterAsync((float)delta);
 		}
 
-		Velocity = velocity;
+
+		if (Input.IsActionJustPressed(InputMapConsts.UserDefined.SLIDE))
+		{
+			_velocity.X = 0.0f;
+			_velocity.Z = 0.0f;
+			_slideTimer = SLIDE_DURATION;
+			_isSlideing = true;
+
+			await StartSliding((float) delta);
+		}
+
+		Velocity = _velocity;
 		MoveAndSlide();
+	}
+
+	private async Task StartSliding(float delta)
+	{
+
+		Vector3 facingDirection = Mesh.Transform.Basis.Z;
+
+		while (_slideTimer >= 0)
+		{
+			_slideTimer -= delta;
+
+			_velocity.X = facingDirection.X * SLIDE_SPEED * delta;
+			_velocity.Z = facingDirection.Z * SLIDE_SPEED * delta;
+
+			MoveAndSlide();
+
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		}
+
+		_isSlideing = false;
 	}
 
 	private async void RotateCharacterAsync(float delta)
