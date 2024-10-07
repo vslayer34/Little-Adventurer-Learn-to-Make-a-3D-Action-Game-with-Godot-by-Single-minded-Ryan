@@ -4,11 +4,11 @@ using Godot;
 namespace LittleAdventurer.Scripts.State_Machine;
 public partial class StateBase : Node
 {
-    [Signal]
-    public delegate void OnEnterStateEventHandler(StateBase nextState);
+    // [Signal]
+    // public delegate void OnEnterStateEventHandler(StateBase nextState);
 
-    [Signal]
-    public delegate void OnExitStateEventHandler(StateBase nextState);
+    // [Signal]
+    // public delegate void OnExitStateEventHandler(StateBase nextState);
 
 
     protected Character _character;
@@ -43,26 +43,16 @@ public partial class StateBase : Node
 
     // Member methods------------------------------------------------------------------------------
 
-    protected virtual void EnterState(StateBase state)
+    protected virtual void EnterState()
     {
-        if (state != this)
-        {
-            return;
-        }
-
         SetPhysicsProcess(true);
         SetProcess(true);
 
         GD.Print($"{Name} entering state");
     }
 
-    protected virtual void ExitState(StateBase state)
+    protected virtual void ExitState()
     {
-        if (state != this)
-        {
-            return;
-        }
-
         SetPhysicsProcess(false);
         SetProcess(false);
 
