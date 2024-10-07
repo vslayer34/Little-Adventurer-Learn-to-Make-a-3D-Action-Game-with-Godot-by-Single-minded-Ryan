@@ -14,6 +14,7 @@ public partial class RunState_Player : State_Player
 
         base.EnterState();
         Player.AnimPlayer.Play(AnimationConsts.Player.RUN);
+        Player.VFXReference.FootStepsVFX.Emitting = true;
     }
 
     protected override void UpdateState(float delta)
@@ -23,5 +24,16 @@ public partial class RunState_Player : State_Player
             _stateMachine.SwitchStates<IdleState_Player>();
             GD.Print("Switched to idle");
         }
+    }
+
+    protected override void ExitState()
+    {
+        if (_stateMachine.CurrentState != this)
+        {
+            return;
+        }
+        
+        base.ExitState();
+        Player.VFXReference.FootStepsVFX.Emitting = false;
     }
 }

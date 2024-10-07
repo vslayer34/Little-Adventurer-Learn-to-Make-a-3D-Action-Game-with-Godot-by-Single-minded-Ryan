@@ -60,7 +60,7 @@ public partial class PlayerCharacter : Character
 			
 			// Play run animations and start footstep VFX
 			// AnimPlayer.Play(AnimationConsts.Player.RUN);
-			VFXReference.FootStepsVFX.Emitting = true;
+			// VFXReference.FootStepsVFX.Emitting = true;
 		}
 		else
 		{
@@ -69,7 +69,7 @@ public partial class PlayerCharacter : Character
 
 			// Play idle animations and stop footstep vfx
 			// AnimPlayer.Play(AnimationConsts.Player.IDLE);
-			VFXReference.FootStepsVFX.Emitting = false;
+			// VFXReference.FootStepsVFX.Emitting = false;
 		}
 
 		if (velocity.Length() > 0.2f)
