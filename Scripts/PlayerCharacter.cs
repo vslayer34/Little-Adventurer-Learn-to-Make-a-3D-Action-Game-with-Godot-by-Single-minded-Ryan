@@ -118,6 +118,7 @@ public partial class PlayerCharacter : Character
 			_velocity.X = facingDirection.X * SLIDE_SPEED * delta;
 			_velocity.Z = facingDirection.Z * SLIDE_SPEED * delta;
 
+			Velocity = _velocity;
 			MoveAndSlide();
 
 			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
