@@ -34,5 +34,11 @@ public static class InputMapConsts
         /// Reference to<c>move_down</c>input action
         /// </summary>
         public const string MOVE_DOWN = "move_down";
+
+
+        /// <summary>
+        /// Reference to<c>slide</c>input action
+        /// </summary>
+        public const string SLIDE = "slide";
     }
 }
