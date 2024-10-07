@@ -13,6 +13,11 @@ public partial class State_Player : StateBase
         {
             _stateMachine.SwitchStates<SlideState_Player>();
         }
+
+        if (Input.IsActionJustPressed(InputMapConsts.UserDefined.PRIMARY_ATTACK))
+        {
+            _stateMachine.SwitchStates<AttackState_Player>();
+        }
     }
     // Getters and Setters-------------------------------------------------------------------------
 

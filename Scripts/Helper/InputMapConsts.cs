@@ -40,5 +40,11 @@ public static class InputMapConsts
         /// Reference to<c>slide</c>input action
         /// </summary>
         public const string SLIDE = "slide";
+
+
+        /// <summary>
+        /// Reference to<c>primary_attack</c>input action
+        /// </summary>
+        public const string PRIMARY_ATTACK = "primary_attack";
     }
 }
