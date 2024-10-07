@@ -58,7 +58,7 @@ public partial class PlayerCharacter : Character
 			velocity.X = _moveDirection.X * SPEED;
 			velocity.Z = _moveDirection.Z * SPEED;
 			
-			// Play run animations and start footstep VFX
+			// // Play run animations and start footstep VFX
 			// AnimPlayer.Play(AnimationConsts.Player.RUN);
 			// VFXReference.FootStepsVFX.Emitting = true;
 		}
@@ -67,7 +67,7 @@ public partial class PlayerCharacter : Character
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, SPEED);
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, SPEED);
 
-			// Play idle animations and stop footstep vfx
+			// // Play idle animations and stop footstep vfx
 			// AnimPlayer.Play(AnimationConsts.Player.IDLE);
 			// VFXReference.FootStepsVFX.Emitting = false;
 		}
