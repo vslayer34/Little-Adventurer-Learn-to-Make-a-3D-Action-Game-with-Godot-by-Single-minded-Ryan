@@ -7,8 +7,11 @@ public partial class IdleState_Player : State_Player
 {
     protected override void EnterState(StateBase state)
     {
-        base.EnterState(state);
-        Player.AnimPlayer.Play(AnimationConsts.Player.IDLE);
+        if (state == this)
+        {
+            base.EnterState(state);
+            Player.AnimPlayer.Play(AnimationConsts.Player.IDLE);
+        }
     }
 
     protected override void UpdateState(float delta)

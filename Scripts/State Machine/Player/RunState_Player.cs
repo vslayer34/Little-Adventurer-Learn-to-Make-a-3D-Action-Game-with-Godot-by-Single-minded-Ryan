@@ -7,8 +7,11 @@ public partial class RunState_Player : State_Player
 {
     protected override void EnterState(StateBase state)
     {
-        base.EnterState(state);
-        Player.AnimPlayer.Play(AnimationConsts.Player.RUN);
+        if (state == this)
+        {
+            base.EnterState(state);
+            Player.AnimPlayer.Play(AnimationConsts.Player.RUN);
+        }
     }
 
     protected override void UpdateState(float delta)

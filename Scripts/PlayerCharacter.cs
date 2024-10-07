@@ -59,7 +59,7 @@ public partial class PlayerCharacter : Character
 			velocity.Z = _moveDirection.Z * SPEED;
 			
 			// Play run animations and start footstep VFX
-			AnimPlayer.Play(AnimationConsts.Player.RUN);
+			// AnimPlayer.Play(AnimationConsts.Player.RUN);
 			VFXReference.FootStepsVFX.Emitting = true;
 		}
 		else

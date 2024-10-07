@@ -33,8 +33,9 @@ public partial class StateMachine : Node3D
             if (state is IdleState_Player idleState)
             {
                 _initialState = idleState;
-                state.ParentCharacter = GetParent() as Character;
             }
+
+            state.ParentCharacter = GetParent() as Character;
         }
 
         _currentState = _initialState;
