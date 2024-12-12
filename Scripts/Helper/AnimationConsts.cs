@@ -119,4 +119,16 @@ public static class AnimationConsts
         /// </summary>
         public const string WALK = "NPC_01_WALK";
     }
+
+
+    /// <summary>
+    /// Hold the names for the sword vfx animation clips
+    /// </summary>
+    public static class SwordVFX
+    {
+        /// <summary>
+        /// Reference to the blade effects
+        /// </summary>
+        public const string AttackVFX = "BladeVFX";
+    }
 }
